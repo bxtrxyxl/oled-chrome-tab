@@ -1,0 +1,1537 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Menu</title>
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%239aa0a6'%3E%3Cpath d='M12 0C8.21 0 4.831 1.757 2.632 4.501l3.953 6.848A5.454 5.454 0 0 1 12 6.545h10.691A12 12 0 0 0 12 0zM1.931 5.47A11.943 11.943 0 0 0 0 12c0 6.012 4.42 10.991 10.189 11.864l3.953-6.847a5.45 5.45 0 0 1-6.865-2.29zm13.342 2.166a5.446 5.446 0 0 1 1.45 7.09l.002.001h-.002l-5.344 9.257c.206.01.413.016.621.016 6.627 0 12-5.373 12-12 0-1.54-.29-3.011-.818-4.364zM12 16.364a4.364 4.364 0 1 1 0-8.728 4.364 4.364 0 0 1 0 8.728Z'/%3E%3C/svg%3E">
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html, body {
+      width: 100%;
+      height: 100%;
+      background: #000000 url('wallpaper.jpg') no-repeat center center fixed;
+      background-size: contain;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      user-select: none;
+      overflow: hidden;
+    }
+
+    main {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      width: 100%;
+      max-width: 100vw;
+      padding: 0 16px;
+      gap: 26px;
+      transform: translateY(-16px);
+      box-sizing: border-box;
+      contain: layout style;
+    }
+
+    form {
+      width: 100%;
+    }
+
+    /* Enhanced OLED Glass Search Box & AI Mode */
+    .search-form {
+      width: 100%;
+      max-width: 600px;
+    }
+
+    .search-box {
+      width: 100%;
+      min-height: 50px;
+      background: rgba(0, 0, 0, 0.4);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: 25px;
+      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.6);
+      padding: 0 10px 0 14px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      transition: background 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease, border-radius 0.2s ease;
+      position: relative;
+    }
+
+    .search-box:hover,
+    .search-box:focus-within {
+      background: rgba(0, 0, 0, 0.6);
+      border-color: rgba(255, 255, 255, 0.24);
+      box-shadow: 0 10px 36px rgba(0, 0, 0, 0.75);
+    }
+
+    .search-box.drag-over {
+      background: rgba(35, 35, 35, 0.6);
+      border-color: #4285f4;
+      box-shadow: 0 0 0 2px rgba(66, 133, 244, 0.45), 0 10px 36px rgba(0, 0, 0, 0.8);
+    }
+
+    .search-box-top {
+      display: flex;
+      align-items: center;
+      width: 100%;
+      min-height: 50px;
+      padding: 6px 0;
+      gap: 8px;
+      box-sizing: border-box;
+    }
+
+    .btn-attach {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      border: none;
+      background: transparent;
+      color: #ffffff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      flex-shrink: 0;
+      transition: background 0.15s ease, color 0.15s ease, transform 0.15s ease;
+    }
+
+    .btn-attach:hover {
+      background: rgba(255, 255, 255, 0.12);
+      color: #ffffff;
+    }
+
+    .search-box.has-files .btn-attach {
+      background: rgba(255, 255, 255, 0.12);
+      color: #ffffff;
+    }
+
+    .icon-plus {
+      width: 20px;
+      height: 20px;
+    }
+
+    /* Dynamically Expanding Multiline Search Input */
+    .search-input-wrap {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      min-width: 0;
+    }
+
+    .search-input-wrap textarea {
+      width: 100%;
+      height: 24px;
+      min-height: 24px;
+      max-height: 180px;
+      background: transparent;
+      border: none;
+      outline: none;
+      color: #ffffff;
+      font-size: 15px;
+      line-height: 24px;
+      font-weight: 400;
+      font-family: inherit;
+      padding: 0 6px;
+      resize: none;
+      overflow-y: hidden;
+      box-sizing: border-box;
+      display: block;
+    }
+
+    .search-input-wrap textarea::placeholder {
+      color: rgba(255, 255, 255, 0.5);
+      font-weight: 400;
+    }
+
+    .search-actions-right {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      flex-shrink: 0;
+    }
+
+    .action-icon-btn {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      border: none;
+      background: transparent;
+      color: #ffffff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      flex-shrink: 0;
+      transition: background 0.15s ease, color 0.15s ease, transform 0.15s ease;
+    }
+
+    .action-icon-btn:hover {
+      background: rgba(255, 255, 255, 0.12);
+      color: #ffffff;
+    }
+
+    .btn-mic.listening {
+      color: #ea4335;
+      background: rgba(234, 67, 53, 0.2);
+      animation: pulseMic 1.2s infinite ease-in-out;
+    }
+
+    @keyframes pulseMic {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.1); }
+      100% { transform: scale(1); }
+    }
+
+    /* AI Mode Button: Regular glass border when OFF, Google Rainbow border when ON */
+    .btn-ai-mode {
+      position: relative;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      height: 34px;
+      padding: 0 13px;
+      border-radius: 9999px;
+      background: rgba(255, 255, 255, 0.08);
+      color: #ffffff;
+      font-size: 13px;
+      font-weight: 500;
+      cursor: pointer;
+      border: 1px solid rgba(255, 255, 255, 0.16);
+      transition: all 0.2s ease;
+      white-space: nowrap;
+      flex-shrink: 0;
+      user-select: none;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+    }
+
+    .btn-ai-mode:hover {
+      background: rgba(255, 255, 255, 0.15);
+      border-color: rgba(255, 255, 255, 0.28);
+      color: #ffffff;
+      transform: translateY(-1px);
+    }
+
+    /* Active State: Vibrant Google Rainbow Gradient Outline */
+    .btn-ai-mode.active {
+      border: 1.5px solid transparent;
+      background: linear-gradient(rgba(18, 18, 18, 0.85), rgba(18, 18, 18, 0.85)) padding-box,
+                  linear-gradient(135deg, #4285f4 0%, #ea4335 30%, #fbbc05 65%, #34a853 100%) border-box;
+      color: #ffffff;
+      box-shadow: 0 0 14px rgba(66, 133, 244, 0.45), 0 2px 10px rgba(0, 0, 0, 0.4);
+    }
+
+    .btn-ai-mode.active:hover {
+      background: linear-gradient(rgba(28, 28, 28, 0.9), rgba(28, 28, 28, 0.9)) padding-box,
+                  linear-gradient(135deg, #4285f4 0%, #ea4335 30%, #fbbc05 65%, #34a853 100%) border-box;
+      box-shadow: 0 0 18px rgba(66, 133, 244, 0.55), 0 4px 14px rgba(0, 0, 0, 0.5);
+    }
+
+    .icon-sparkle {
+      flex-shrink: 0;
+    }
+
+    /* Expanded / Has-Files State */
+    .search-box.has-files {
+      padding: 12px 14px 14px 14px;
+      border-radius: 22px;
+      background: rgba(0, 0, 0, 0.4);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      border-color: rgba(255, 255, 255, 0.22);
+      box-shadow: 0 12px 40px rgba(0, 0, 0, 0.8);
+      gap: 12px;
+    }
+
+    .search-box-bottom {
+      display: none;
+      align-items: center;
+      justify-content: space-between;
+      width: 100%;
+      gap: 12px;
+      padding-top: 4px;
+    }
+
+    .search-box.has-files .search-box-bottom {
+      display: flex;
+    }
+
+    .search-box.has-files .btn-ai-mode {
+      display: none;
+    }
+
+    /* Attachments Preview Row */
+    .attachments-list {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+      flex: 1;
+      min-height: 48px;
+    }
+
+    .attachment-card {
+      position: relative;
+      width: 50px;
+      height: 50px;
+      border-radius: 12px;
+      overflow: hidden;
+      background: rgba(0, 0, 0, 0.6);
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 1px solid rgba(255, 255, 255, 0.16);
+      flex-shrink: 0;
+      transition: transform 0.15s ease, border-color 0.15s ease;
+    }
+
+    .attachment-card:hover {
+      transform: translateY(-2px);
+      border-color: rgba(255, 255, 255, 0.32);
+    }
+
+    .attachment-thumb {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .attachment-badge {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      height: 100%;
+      background: #0f0f10;
+      color: #ff3b30;
+      font-weight: 700;
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      user-select: none;
+    }
+
+    .attachment-remove {
+      position: absolute;
+      top: 3px;
+      right: 3px;
+      width: 16px;
+      height: 16px;
+      border-radius: 50%;
+      background: rgba(0, 0, 0, 0.75);
+      color: #ffffff;
+      border: 1px solid rgba(255, 255, 255, 0.4);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 11px;
+      line-height: 1;
+      cursor: pointer;
+      opacity: 0;
+      transition: opacity 0.15s ease, background 0.15s ease;
+    }
+
+    .attachment-card:hover .attachment-remove {
+      opacity: 1;
+    }
+
+    .attachment-remove:hover {
+      background: #ff3b30;
+      border-color: #ff3b30;
+    }
+
+    /* Submit Button (Blue Circle with Arrow) */
+    .btn-submit-circle {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      background: #1a73e8;
+      color: #ffffff;
+      border: none;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      flex-shrink: 0;
+      box-shadow: 0 2px 8px rgba(26, 115, 232, 0.4);
+      transition: background 0.15s ease, transform 0.15s ease, box-shadow 0.15s ease;
+    }
+
+    .btn-submit-circle:hover {
+      background: #1557b0;
+      transform: scale(1.05);
+      box-shadow: 0 4px 12px rgba(26, 115, 232, 0.5);
+    }
+
+    .btn-submit-circle:active {
+      transform: scale(0.96);
+    }
+
+    /* ============================================================
+       UNBOUNDED HORIZONTAL SHORTCUTS ROW (ALL ITEMS FULLY VISIBLE)
+       ============================================================ */
+    .shortcuts {
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+      align-items: flex-start;
+      gap: var(--sc-gap, 16px);
+      width: 100%;
+      max-width: 98vw;
+      margin: 0 auto;
+      padding: 6px 8px;
+      box-sizing: border-box;
+      flex-wrap: nowrap;
+      overflow: visible;
+      transition: opacity 0.25s ease, transform 0.25s ease;
+    }
+
+    .shortcut-item {
+      flex: 0 0 var(--sc-item-width, 68px);
+      width: var(--sc-item-width, 68px);
+      min-width: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 6px;
+      text-decoration: none;
+      padding: 4px;
+      border-radius: 14px;
+      cursor: pointer;
+      will-change: transform;
+      transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), background 0.2s ease;
+    }
+
+    .shortcut-item:hover {
+      transform: translate3d(0, -3px, 0);
+      background: rgba(255, 255, 255, 0.05);
+    }
+
+    .shortcut-icon-wrap {
+      width: var(--sc-icon-size, 50px);
+      height: var(--sc-icon-size, 50px);
+      border-radius: 50%;
+      background: rgba(0, 0, 0, 0.4);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.45);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      flex-shrink: 0;
+      transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1),
+                  background 0.2s ease,
+                  border-color 0.2s ease,
+                  box-shadow 0.2s ease;
+    }
+
+    .shortcut-item:hover .shortcut-icon-wrap {
+      background: rgba(35, 35, 35, 0.6);
+      border-color: rgba(255, 255, 255, 0.28);
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.65);
+    }
+
+    .shortcut-icon {
+      width: var(--sc-img-size, 24px);
+      height: var(--sc-img-size, 24px);
+      object-fit: contain;
+      pointer-events: none;
+      border-radius: 4px;
+    }
+
+    .shortcut-avatar {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: var(--sc-avatar-size, 18px);
+      font-weight: 600;
+      color: #ffffff;
+      background: rgba(255, 255, 255, 0.08);
+      text-transform: uppercase;
+      user-select: none;
+    }
+
+    .shortcut-title {
+      font-size: var(--sc-title-size, 11.5px);
+      color: rgba(255, 255, 255, 0.7);
+      width: 100%;
+      max-width: 100%;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      letter-spacing: 0.2px;
+      text-align: center;
+      transition: color 0.2s ease;
+      user-select: none;
+    }
+
+    .shortcut-item:hover .shortcut-title {
+      color: #ffffff;
+    }
+
+    /* ============================================================
+       OLED TRANSLUCENT MUSIC PLAYER
+       ============================================================ */
+    .media-widget {
+      width: 100%;
+      max-width: 490px;
+      display: flex;
+      justify-content: center;
+      transition: all 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
+    }
+
+    /* Idle State */
+    .idle-bar {
+      display: none;
+      align-items: center;
+      gap: 9px;
+      padding: 9px 20px;
+      background: rgba(0, 0, 0, 0.4);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 20px;
+      color: rgba(255, 255, 255, 0.45);
+      font-size: 13px;
+      font-weight: 400;
+      letter-spacing: 0.2px;
+      cursor: pointer;
+      box-shadow: 0 4px 18px rgba(0, 0, 0, 0.45);
+      transition: all 0.25s ease;
+    }
+
+    .idle-bar:hover {
+      background: rgba(28, 28, 28, 0.6);
+      border-color: rgba(255, 255, 255, 0.2);
+      color: rgba(255, 255, 255, 0.75);
+      box-shadow: 0 6px 22px rgba(0, 0, 0, 0.6);
+      transform: translateY(-1px);
+    }
+
+    .idle-note-icon {
+      width: 16px;
+      height: 16px;
+      fill: none;
+      stroke: currentColor;
+      stroke-width: 2;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      flex-shrink: 0;
+    }
+
+    .media-widget.idle .idle-bar {
+      display: inline-flex;
+    }
+
+    .media-widget.idle .player-card {
+      display: none;
+    }
+
+    /* Active Player Card */
+    .player-card {
+      width: 100%;
+      background: rgba(0, 0, 0, 0.4);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.13);
+      border-radius: 22px;
+      padding: 14px 18px;
+      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.6);
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      transition: background 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
+    }
+
+    .player-card:hover {
+      background: rgba(0, 0, 0, 0.6);
+      border-color: rgba(255, 255, 255, 0.24);
+      box-shadow: 0 12px 38px rgba(0, 0, 0, 0.75);
+    }
+
+    /* Cover Art */
+    .player-left {
+      flex-shrink: 0;
+    }
+
+    .cover-box {
+      position: relative;
+      width: 70px;
+      height: 70px;
+      border-radius: 15px;
+      overflow: hidden;
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      box-shadow: 0 5px 16px rgba(0, 0, 0, 0.55);
+      cursor: pointer;
+    }
+
+    .cover-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
+    }
+
+    .cover-box:hover .cover-img {
+      transform: scale(1.08);
+    }
+
+    .cover-fallback {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: radial-gradient(circle at 35% 35%, rgba(255, 255, 255, 0.1), rgba(0, 0, 0, 0.85));
+    }
+
+    .cover-fallback svg {
+      width: 26px;
+      height: 26px;
+      fill: none;
+      stroke: rgba(255, 255, 255, 0.6);
+      stroke-width: 2;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    /* Equalizer Soundwave Indicator */
+    .equalizer {
+      position: absolute;
+      bottom: 5px;
+      right: 5px;
+      display: flex;
+      align-items: flex-end;
+      gap: 2.5px;
+      height: 14px;
+      padding: 2px 4px;
+      background: rgba(0, 0, 0, 0.68);
+      border-radius: 5px;
+      opacity: 0;
+      transition: opacity 0.2s ease;
+      pointer-events: none;
+    }
+
+    .media-widget.playing .equalizer {
+      opacity: 1;
+    }
+
+    .eq-bar {
+      width: 2px;
+      background: #ffffff;
+      border-radius: 1px;
+      height: 3px;
+    }
+
+    .media-widget.playing .eq-bar:nth-child(1) {
+      animation: eqBounce 0.9s ease-in-out infinite alternate;
+    }
+    .media-widget.playing .eq-bar:nth-child(2) {
+      animation: eqBounce 0.65s ease-in-out 0.15s infinite alternate;
+    }
+    .media-widget.playing .eq-bar:nth-child(3) {
+      animation: eqBounce 1.1s ease-in-out 0.35s infinite alternate;
+    }
+
+    @keyframes eqBounce {
+      0% { height: 3px; }
+      100% { height: 11px; }
+    }
+
+    /* Player Right Area */
+    .player-right {
+      flex: 1;
+      min-width: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    /* Header: Title, Artist, Source Pill */
+    .track-info-row {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 10px;
+    }
+
+    .meta-texts {
+      flex: 1;
+      min-width: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .track-title {
+      font-size: 14px;
+      font-weight: 600;
+      color: #ffffff;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      cursor: pointer;
+      letter-spacing: -0.15px;
+      transition: color 0.15s ease;
+    }
+
+    .track-title:hover {
+      color: #e2e8f0;
+      text-decoration: underline;
+    }
+
+    .track-artist {
+      font-size: 12px;
+      color: rgba(255, 255, 255, 0.6);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      font-weight: 400;
+    }
+
+    .btn-jump-tab {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      padding: 3px 8px;
+      border-radius: 10px;
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      color: rgba(255, 255, 255, 0.65);
+      font-size: 11px;
+      font-weight: 500;
+      cursor: pointer;
+      flex-shrink: 0;
+      outline: none;
+      transition: all 0.2s ease;
+    }
+
+    .btn-jump-tab:hover {
+      background: rgba(255, 255, 255, 0.16);
+      border-color: rgba(255, 255, 255, 0.2);
+      color: #ffffff;
+      transform: translateY(-1px);
+    }
+
+    .btn-jump-tab svg {
+      width: 10px;
+      height: 10px;
+      fill: none;
+      stroke: currentColor;
+      stroke-width: 2.2;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    /* Progress bar */
+    .progress-wrap {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+      cursor: pointer;
+    }
+
+    .progress-bar-rail {
+      width: 100%;
+      height: 4px;
+      background: rgba(255, 255, 255, 0.14);
+      border-radius: 2px;
+      position: relative;
+      overflow: hidden;
+      transition: height 0.15s ease;
+    }
+
+    .progress-wrap:hover .progress-bar-rail {
+      height: 6px;
+    }
+
+    .progress-bar-fill {
+      height: 100%;
+      width: 0%;
+      background: #ffffff;
+      border-radius: 2px;
+      box-shadow: 0 0 8px rgba(255, 255, 255, 0.45);
+      pointer-events: none;
+      transition: width 0.1s linear;
+    }
+
+    .time-row {
+      display: flex;
+      justify-content: space-between;
+      font-size: 10px;
+      color: rgba(255, 255, 255, 0.45);
+      font-variant-numeric: tabular-nums;
+      font-weight: 400;
+      letter-spacing: 0.2px;
+      pointer-events: none;
+    }
+
+    /* Controls row */
+    .controls-row {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      margin-top: 2px;
+    }
+
+    .ctrl-btn {
+      background: transparent;
+      border: none;
+      outline: none;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: rgba(255, 255, 255, 0.7);
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      transition: all 0.2s cubic-bezier(0.2, 0.8, 0.2, 1);
+    }
+
+    .ctrl-btn:hover {
+      color: #ffffff;
+      background: rgba(255, 255, 255, 0.12);
+      transform: scale(1.08);
+    }
+
+    .ctrl-btn:active {
+      transform: scale(0.94);
+    }
+
+    .ctrl-btn svg {
+      width: 16px;
+      height: 16px;
+      fill: currentColor;
+      stroke: currentColor;
+      stroke-width: 0;
+    }
+
+    .btn-play {
+      width: 36px;
+      height: 36px;
+      background: rgba(255, 255, 255, 0.14);
+      border: 1px solid rgba(255, 255, 255, 0.16);
+      color: #ffffff;
+      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.45);
+    }
+
+    .btn-play:hover {
+      background: rgba(255, 255, 255, 0.24);
+      border-color: rgba(255, 255, 255, 0.28);
+      transform: scale(1.1);
+      box-shadow: 0 6px 18px rgba(0, 0, 0, 0.6);
+    }
+
+    .btn-play svg {
+      width: 17px;
+      height: 17px;
+    }
+
+    .btn-play .icon-pause {
+      stroke-width: 0;
+    }
+
+    .hidden {
+      display: none !important;
+    }
+
+    /* ============================================================
+       SETTINGS PANEL & CONTROLS (Physical Movement & 60 FPS Locked)
+       ============================================================ */
+    .settings-hint {
+      position: fixed;
+      bottom: 14px;
+      left: 50%;
+      transform: translate3d(-50%, 0, 0);
+      font-size: 11px;
+      color: rgba(255, 255, 255, 0.35);
+      letter-spacing: 0.5px;
+      pointer-events: none;
+      user-select: none;
+      transition: opacity 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+      z-index: 50;
+      white-space: nowrap;
+    }
+
+    /* Transparent Click-to-Close Backdrop */
+    .settings-backdrop {
+      position: fixed;
+      inset: 0;
+      background: transparent;
+      z-index: 998;
+      pointer-events: none;
+      opacity: 0;
+    }
+
+    .settings-backdrop.open {
+      pointer-events: auto;
+    }
+
+    /* Hardware-Accelerated Right-Side Settings Panel with Smooth EaseOut Animation */
+    .settings-panel {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      bottom: 20px;
+      width: 440px;
+      max-width: calc(100vw - 40px);
+      background: #141414;
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: 20px;
+      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.6);
+      color: #ffffff;
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+      padding: 20px 22px;
+      box-sizing: border-box;
+      z-index: 1000;
+      overflow-y: auto;
+      overflow-x: hidden;
+      contain: layout style;
+      -webkit-overflow-scrolling: touch;
+      overscroll-behavior: contain;
+      transform: translate3d(calc(100% + 30px), 0, 0);
+      opacity: 0;
+      pointer-events: none;
+      visibility: hidden;
+      will-change: transform, opacity;
+      transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1),
+                  opacity 0.25s cubic-bezier(0.16, 1, 0.3, 1),
+                  visibility 0.35s;
+    }
+
+    .settings-panel.open {
+      transform: translate3d(0, 0, 0);
+      opacity: 1;
+      pointer-events: auto;
+      visibility: visible;
+      transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1),
+                  opacity 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    /* Clean, Zero-Jitter Scrollbar */
+    .settings-panel::-webkit-scrollbar {
+      width: 6px;
+    }
+
+    .settings-panel::-webkit-scrollbar-track {
+      background: transparent;
+    }
+
+    .settings-panel::-webkit-scrollbar-thumb {
+      background: #333333;
+      border-radius: 3px;
+    }
+
+    .settings-panel::-webkit-scrollbar-thumb:hover {
+      background: #444444;
+    }
+
+    .settings-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      padding-bottom: 14px;
+    }
+
+    .settings-title-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 16px;
+      font-weight: 600;
+      letter-spacing: 0.3px;
+    }
+
+    .settings-close-btn {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      background: rgba(255, 255, 255, 0.06);
+      color: rgba(255, 255, 255, 0.7);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.15s ease, color 0.15s ease;
+    }
+
+    .settings-close-btn:hover {
+      background: rgba(255, 255, 255, 0.15);
+      color: #ffffff;
+    }
+
+    .settings-section {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .settings-section-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .settings-section-title {
+      font-size: 12px;
+      font-weight: 600;
+      color: rgba(255, 255, 255, 0.45);
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+    }
+
+    /* Custom Wallpaper Section */
+    .settings-wallpaper-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .btn-custom-wallpaper {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      width: 100%;
+      height: 38px;
+      background: #1f1f1f;
+      border: 1px solid rgba(255, 255, 255, 0.14);
+      border-radius: 14px;
+      color: #ffffff;
+      font-size: 13px;
+      font-weight: 500;
+      cursor: pointer;
+      user-select: none;
+      box-sizing: border-box;
+      transition: background 0.15s ease, border-color 0.15s ease;
+    }
+
+    .btn-custom-wallpaper:hover {
+      background: #2a2a2a;
+      border-color: rgba(255, 255, 255, 0.28);
+    }
+
+    .btn-reset-wallpaper {
+      background: transparent;
+      border: none;
+      color: rgba(255, 255, 255, 0.45);
+      font-size: 11px;
+      font-weight: 500;
+      cursor: pointer;
+      padding: 3px 8px;
+      border-radius: 6px;
+      transition: color 0.15s ease, background 0.15s ease;
+    }
+
+    .btn-reset-wallpaper:hover {
+      color: #ff453a;
+      background: rgba(255, 69, 58, 0.12);
+    }
+
+    /* Wallpaper Sizing Mode Selector */
+    .wallpaper-modes-group {
+      display: flex;
+      align-items: center;
+      background: #1a1a1a;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 12px;
+      padding: 3px;
+      gap: 3px;
+    }
+
+    .btn-wp-mode {
+      flex: 1;
+      height: 30px;
+      border: 1px solid transparent;
+      background: transparent;
+      color: rgba(255, 255, 255, 0.65);
+      border-radius: 9px;
+      font-size: 12px;
+      font-weight: 500;
+      cursor: pointer;
+      user-select: none;
+      box-sizing: border-box;
+      transition: background 0.12s ease, color 0.12s ease, border-color 0.12s ease;
+    }
+
+    .btn-wp-mode:hover {
+      color: #ffffff;
+      background: rgba(255, 255, 255, 0.06);
+    }
+
+    .btn-wp-mode.active {
+      background: #2a2a2a;
+      color: #ffffff;
+      border-color: rgba(255, 255, 255, 0.14);
+      font-weight: 600;
+    }
+
+    /* Widget Visibility Toggles */
+    /* Widget Visibility Checkboxes */
+    .settings-checkbox-group {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      background: #1a1a1a;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 14px;
+      padding: 12px 14px;
+      contain: content;
+    }
+
+    .settings-checkbox-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      cursor: pointer;
+      font-size: 13.5px;
+      color: rgba(255, 255, 255, 0.9);
+      user-select: none;
+      position: relative;
+    }
+
+    .settings-checkbox-row input[type="checkbox"] {
+      position: absolute;
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .custom-checkbox {
+      width: 20px;
+      height: 20px;
+      border-radius: 6px;
+      background: #242424;
+      border: 1.5px solid rgba(255, 255, 255, 0.22);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      box-sizing: border-box;
+    }
+
+    .settings-checkbox-row:hover .custom-checkbox {
+      border-color: rgba(255, 255, 255, 0.35);
+    }
+
+    .settings-checkbox-row input[type="checkbox"]:checked + .custom-checkbox {
+      background: #1a73e8;
+      border-color: #1a73e8;
+    }
+
+    .check-icon {
+      width: 13px;
+      height: 13px;
+      fill: none;
+      stroke: #ffffff;
+      stroke-width: 2.8;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      display: none;
+    }
+
+    .settings-checkbox-row input[type="checkbox"]:checked + .custom-checkbox .check-icon {
+      display: block;
+    }
+
+    /* Shortcuts Manager List (Locked 60 FPS Contained Elements) */
+    .btn-add-shortcut {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 12px;
+      border-radius: 20px;
+      background: #222222;
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      color: #ffffff;
+      font-size: 12px;
+      font-weight: 500;
+      cursor: pointer;
+    }
+
+    .btn-add-shortcut:hover {
+      background: #2d2d2d;
+      border-color: rgba(255, 255, 255, 0.28);
+    }
+
+    .settings-shortcuts-list {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      overflow-y: visible;
+      padding-right: 2px;
+      contain: content;
+    }
+
+    .settings-shortcut-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      background: #1a1a1a;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 14px;
+      padding: 8px 10px;
+      contain: paint layout;
+    }
+
+    .settings-sc-icon-preview {
+      width: 32px;
+      height: 32px;
+      border-radius: 8px;
+      background: #242424;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      flex-shrink: 0;
+    }
+
+    .settings-sc-icon-preview img {
+      width: 20px;
+      height: 20px;
+      object-fit: contain;
+    }
+
+    .settings-sc-icon-preview .avatar {
+      font-size: 13px;
+      font-weight: 600;
+      color: #ffffff;
+    }
+
+    .settings-sc-inputs {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      flex: 1;
+      min-width: 0;
+    }
+
+    .settings-sc-input {
+      width: 100%;
+      height: 26px;
+      background: #202020;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 6px;
+      color: #ffffff;
+      font-size: 12px;
+      padding: 0 8px;
+      outline: none;
+      box-sizing: border-box;
+    }
+
+    .settings-sc-input:focus {
+      border-color: #4285f4;
+      background: #252525;
+    }
+
+    .settings-sc-input::placeholder {
+      color: rgba(255, 255, 255, 0.35);
+    }
+
+    .btn-delete-shortcut {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      border: 1px solid rgba(255, 59, 48, 0.2);
+      background: rgba(255, 59, 48, 0.1);
+      color: #ff453a;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .btn-delete-shortcut:hover {
+      background: rgba(255, 59, 48, 0.25);
+      border-color: rgba(255, 59, 48, 0.4);
+    }
+  </style>
+</head>
+<body>
+
+  <main>
+    <!-- Enhanced Search Form with AI Mode and Attachment Capabilities -->
+    <form id="search-form" class="search-form" action="https://www.google.com/search" method="GET">
+      <div class="search-box" id="search-box">
+        <div class="search-box-top">
+          <button type="button" class="btn-attach" id="btn-attach" title="Attach image or file">
+            <svg viewBox="0 0 24 24" class="icon-plus">
+              <path d="M12 5v14M5 12h14" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/>
+            </svg>
+          </button>
+
+          <div class="search-input-wrap">
+            <textarea name="q" id="search-input" placeholder="Ask Google" autofocus autocomplete="off" spellcheck="false" rows="1"></textarea>
+          </div>
+
+          <div class="search-actions-right">
+            <button type="button" class="action-icon-btn btn-mic" id="btn-mic" title="Search by voice">
+              <svg viewBox="0 0 24 24" class="icon-mic" width="20" height="20">
+                <path fill="currentColor" d="M12 14c1.66 0 3-1.34 3-3V5c0-1.66-1.34-3-3-3S9 3.34 9 5v6c0 1.66 1.34 3 3 3z"/>
+                <path fill="currentColor" d="M17 11c0 2.76-2.24 5-5 5s-5-2.24-5-5H5c0 3.53 2.61 6.43 6 6.92V21h2v-3.08c3.39-.49 6-3.39 6-6.92h-2z"/>
+              </svg>
+            </button>
+
+            <button type="button" class="btn-ai-mode" id="btn-ai-mode" title="Toggle AI Mode">
+              <svg viewBox="0 0 24 24" class="icon-sparkle" width="16" height="16">
+                <path fill="currentColor" d="M19 9l1.25-2.75L23 5l-2.75-1.25L19 1l-1.25 2.75L15 5l2.75 1.25L19 9zm-7.5.5L9 4 6.5 9.5 1 12l5.5 2.5L9 20l2.5-5.5L17 12l-5.5-2.5z"/>
+              </svg>
+              <span class="ai-mode-text">AI Mode</span>
+            </button>
+
+            <button type="button" class="action-icon-btn btn-clear hidden" id="btn-clear" title="Clear">
+              <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round">
+                <line x1="18" y1="6" x2="6" y2="18"></line>
+                <line x1="6" y1="6" x2="18" y2="18"></line>
+              </svg>
+            </button>
+          </div>
+        </div>
+
+        <div class="search-box-bottom" id="search-box-bottom">
+          <div class="attachments-list" id="attachments-list"></div>
+          <button type="submit" class="btn-submit-circle" id="btn-submit" title="Search with files">
+            <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="#ffffff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <line x1="5" y1="12" x2="19" y2="12"></line>
+              <polyline points="12 5 19 12 12 19"></polyline>
+            </svg>
+          </button>
+        </div>
+      </div>
+
+      <!-- Hidden native file selector -->
+      <input type="file" id="file-input" style="display:none;" multiple>
+    </form>
+
+    <!-- Strict Single Horizontal Row Shortcuts Container -->
+    <div class="shortcuts" id="shortcuts-grid"></div>
+
+    <!-- OLED Translucent Media Player -->
+    <div id="media-widget" class="media-widget idle">
+      <!-- Idle State: Minimalist OLED Glass Pill -->
+      <div class="idle-bar" id="idle-bar" title="Click to scan tabs for media">
+        <svg class="idle-note-icon" viewBox="0 0 24 24">
+          <path d="M9 18V5l12-2v13"></path>
+          <circle cx="6" cy="18" r="3"></circle>
+          <circle cx="18" cy="16" r="3"></circle>
+        </svg>
+        <span>No media playing in browser</span>
+      </div>
+
+      <!-- Active State: Rich OLED Glass Card -->
+      <div class="player-card" id="player-card">
+        <!-- Album / Video Cover Art -->
+        <div class="player-left">
+          <div class="cover-box" id="cover-box" title="Jump to tab">
+            <img id="track-cover" class="cover-img" src="" alt="Cover Art">
+            <div id="cover-fallback" class="cover-fallback">
+              <svg viewBox="0 0 24 24">
+                <path d="M9 18V5l12-2v13"></path>
+                <circle cx="6" cy="18" r="3"></circle>
+                <circle cx="18" cy="16" r="3"></circle>
+              </svg>
+            </div>
+            <!-- Equalizer soundwave bars -->
+            <div class="equalizer" id="equalizer">
+              <span class="eq-bar"></span>
+              <span class="eq-bar"></span>
+              <span class="eq-bar"></span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Track Info & Controls -->
+        <div class="player-right">
+          <div class="track-info-row">
+            <div class="meta-texts">
+              <div id="track-title" class="track-title" title="Jump to tab">Title</div>
+              <div id="track-artist" class="track-artist">Artist</div>
+            </div>
+            <button id="btn-jump-tab" class="btn-jump-tab" title="Open media tab">
+              <span id="source-name">Tab</span>
+              <svg viewBox="0 0 24 24">
+                <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                <polyline points="15 3 21 3 21 9"></polyline>
+                <line x1="10" y1="14" x2="21" y2="3"></line>
+              </svg>
+            </button>
+          </div>
+
+          <!-- Progress scrubber -->
+          <div class="progress-wrap" id="progress-wrap">
+            <div class="progress-bar-rail" id="progress-rail">
+              <div class="progress-bar-fill" id="progress-fill"></div>
+            </div>
+            <div class="time-row">
+              <span id="time-current">0:00</span>
+              <span id="time-total">0:00</span>
+            </div>
+          </div>
+
+          <!-- Playback Controls -->
+          <div class="controls-row">
+            <button id="btn-prev" class="ctrl-btn" title="Previous track">
+              <svg viewBox="0 0 24 24">
+                <polygon points="19 20 9 12 19 4 19 20"></polygon>
+                <line x1="5" y1="19" x2="5" y2="5" stroke="currentColor" stroke-width="2.5"></line>
+              </svg>
+            </button>
+
+            <button id="btn-play-pause" class="ctrl-btn btn-play" title="Play / Pause">
+              <!-- Play Icon -->
+              <svg id="icon-play" class="icon-play" viewBox="0 0 24 24">
+                <polygon points="7 4 20 12 7 20 7 4"></polygon>
+              </svg>
+              <!-- Pause Icon -->
+              <svg id="icon-pause" class="icon-pause hidden" viewBox="0 0 24 24">
+                <rect x="6" y="4" width="4.5" height="16" rx="1.5"></rect>
+                <rect x="13.5" y="4" width="4.5" height="16" rx="1.5"></rect>
+              </svg>
+            </button>
+
+            <button id="btn-next" class="ctrl-btn" title="Next track">
+              <svg viewBox="0 0 24 24">
+                <polygon points="5 4 15 12 5 20 5 4"></polygon>
+                <line x1="19" y1="5" x2="19" y2="19" stroke="currentColor" stroke-width="2.5"></line>
+              </svg>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Settings Hint -->
+  <div class="settings-hint" id="settings-hint">Press 's' to open settings</div>
+
+  <!-- Settings Backdrop -->
+  <div class="settings-backdrop" id="settings-backdrop"></div>
+
+  <!-- Settings Panel -->
+  <aside class="settings-panel" id="settings-panel">
+    <div class="settings-header">
+      <div class="settings-title-row">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="12" r="3"></circle>
+          <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
+        </svg>
+        <span class="settings-title">Settings</span>
+      </div>
+      <button type="button" class="settings-close-btn" id="btn-close-settings" title="Close (Esc)">
+        <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round">
+          <line x1="18" y1="6" x2="6" y2="18"></line>
+          <line x1="6" y1="6" x2="18" y2="18"></line>
+        </svg>
+      </button>
+    </div>
+
+    <!-- Wallpaper Section -->
+    <div class="settings-section">
+      <div class="settings-section-header">
+        <span class="settings-section-title">Wallpaper</span>
+        <button type="button" class="btn-reset-wallpaper hidden" id="btn-reset-wallpaper" title="Reset to default wallpaper">Reset</button>
+      </div>
+      <div class="settings-wallpaper-row">
+        <label class="btn-custom-wallpaper" for="wallpaper-file-input">
+          <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+            <circle cx="8.5" cy="8.5" r="1.5"></circle>
+            <polyline points="21 15 16 10 5 21"></polyline>
+          </svg>
+          <span>Change Wallpaper</span>
+        </label>
+        <input type="file" id="wallpaper-file-input" accept="image/*" style="display:none;">
+      </div>
+      <div class="wallpaper-modes-group" id="wallpaper-modes-group">
+        <button type="button" class="btn-wp-mode" data-mode="fit">Fit</button>
+        <button type="button" class="btn-wp-mode" data-mode="stretch">Stretch</button>
+        <button type="button" class="btn-wp-mode active" data-mode="cover">Cover</button>
+        <button type="button" class="btn-wp-mode" data-mode="original">Original</button>
+      </div>
+    </div>
+
+    <!-- Widgets Display Checkboxes -->
+    <div class="settings-section">
+      <div class="settings-section-title">Widgets</div>
+      <div class="settings-checkbox-group">
+        <label class="settings-checkbox-row">
+          <span>Search Bar</span>
+          <input type="checkbox" id="toggle-search" checked>
+          <span class="custom-checkbox">
+            <svg viewBox="0 0 24 24" class="check-icon">
+              <polyline points="20 6 9 17 4 12"></polyline>
+            </svg>
+          </span>
+        </label>
+        <label class="settings-checkbox-row">
+          <span>Shortcuts</span>
+          <input type="checkbox" id="toggle-shortcuts" checked>
+          <span class="custom-checkbox">
+            <svg viewBox="0 0 24 24" class="check-icon">
+              <polyline points="20 6 9 17 4 12"></polyline>
+            </svg>
+          </span>
+        </label>
+        <label class="settings-checkbox-row">
+          <span>Media Player</span>
+          <input type="checkbox" id="toggle-player" checked>
+          <span class="custom-checkbox">
+            <svg viewBox="0 0 24 24" class="check-icon">
+              <polyline points="20 6 9 17 4 12"></polyline>
+            </svg>
+          </span>
+        </label>
+        <label class="settings-checkbox-row">
+          <span>Settings Guide ("Press 's'")</span>
+          <input type="checkbox" id="toggle-guide" checked>
+          <span class="custom-checkbox">
+            <svg viewBox="0 0 24 24" class="check-icon">
+              <polyline points="20 6 9 17 4 12"></polyline>
+            </svg>
+          </span>
+        </label>
+      </div>
+    </div>
+
+    <!-- Shortcuts Manager -->
+    <div class="settings-section">
+      <div class="settings-section-header">
+        <span class="settings-section-title">Manage Shortcuts</span>
+        <button type="button" class="btn-add-shortcut" id="btn-add-shortcut">
+          <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round">
+            <line x1="12" y1="5" x2="12" y2="19"></line>
+            <line x1="5" y1="12" x2="19" y2="12"></line>
+          </svg>
+          Add Shortcut
+        </button>
+      </div>
+      <div class="settings-shortcuts-list" id="settings-shortcuts-list"></div>
+    </div>
+  </aside>
+
+  <script src="newtab.js"></script>
+</body>
+</html>
