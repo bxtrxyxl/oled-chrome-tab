@@ -18,29 +18,31 @@ A minimalist, high-contrast New Tab extension for Google Chrome featuring an aut
 
 ## Installation Guide
 
-Because this extension is not hosted on the Chrome Web Store, Chrome requires Developer Mode to run it.
+Because this extension is not hosted on the Chrome Web Store, your browser requires Developer Mode to run it.
 
-### Method 1: Using the `.crx` Package (Recommended)
+### Method 1: Load Unpacked (Recommended for Google Chrome)
 
-1. Download the latest `oled-chrome-tab.crx` from the [Releases](https://github.com/bxtrxyxl/oled-chrome-tab/releases) section.
-2. Open Google Chrome and navigate to `chrome://extensions` in the address bar.
-3. Enable the **Developer mode** toggle in the top-right corner.
-4. Drag and drop the downloaded `.crx` file directly into the `chrome://extensions` tab.
-5. Click **Add extension** when prompted.
-6. Open a new tab (`Ctrl + T`) to launch the setup.
+Due to recent Chrome security policies blocking self-signed `.crx` files (`CRX_REQUIRED_PROOF_MISSING` error), this is the most reliable installation method:
+
+1. Download the latest source code archive via **Code → Download ZIP** (or grab `Source code (zip)` from [Releases](https://github.com/bxtrxyxl/oled-chrome-tab/releases)).
+2. Extract the archive into a permanent folder on your computer.
+3. Open Google Chrome and navigate to `chrome://extensions` in the address bar.
+4. Enable the **Developer mode** toggle in the top-right corner.
+5. Click the **Load unpacked** button in the top-left corner.
+6. Select the extracted project folder (the one containing `manifest.json`).
+7. Open a new tab (`Ctrl + T`) to launch the setup.
 
 ---
 
-### Method 2: Load Unpacked (If Chrome Blocks `.crx`)
+### Method 2: Drag & Drop `.crx` (Alternative Chromium Browsers)
 
-If your browser restricts direct `.crx` file drops due to local policies:
+If you use Chromium-based browsers without strict Chrome Web Store signature checks (such as Brave, Vivaldi, Edge, or Supermium):
 
-1. Download this repository as a `.zip` archive via **Code → Download ZIP** (or get `Source code.zip` from [Releases](https://github.com/bxtrxyxl/oled-chrome-tab/releases)).
-2. Extract the archive into a permanent folder on your computer.
-3. Open Chrome and navigate to `chrome://extensions`.
-4. Ensure **Developer mode** is turned on in the top-right corner.
-5. Click the **Load unpacked** button in the top-left corner.
-6. Select the extracted project folder (the one containing `manifest.json`).
+1. Download the latest `oled-chrome-tab.crx` from the [Releases](https://github.com/bxtrxyxl/oled-chrome-tab/releases) section.
+2. Open your browser and go to its extensions management page (e.g., `brave://extensions` or `edge://extensions`).
+3. Make sure **Developer mode** is turned on.
+4. Drag and drop the downloaded `.crx` file directly onto the extensions tab.
+5. Confirm the prompt by clicking **Add extension**.
 
 ---
 
