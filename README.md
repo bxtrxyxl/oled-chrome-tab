@@ -16,7 +16,7 @@ A minimalist, high-contrast New Tab extension for Google Chrome featuring an aut
 
 ---
 
-## 🚀 Installation Guide
+## Installation Guide
 
 Because this extension is not hosted on the Chrome Web Store, Chrome requires Developer Mode to run it.
 
