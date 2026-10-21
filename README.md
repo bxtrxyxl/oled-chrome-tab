@@ -2,6 +2,9 @@
 
 A minimalist, high-contrast New Tab extension for Google Chrome featuring an authentic **Glassmorphism** aesthetic and **Nothing OS-inspired** geometry. Built specifically for deep black (`#000000`) power-efficient OLED displays.
 
+<img width="2879" height="1799" alt="image" src="https://github.com/user-attachments/assets/014954d3-7189-466d-86f0-b940ba93776b" />
+
+
 ---
 
 ## ✨ Features
